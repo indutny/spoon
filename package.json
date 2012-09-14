@@ -1,0 +1,15 @@
+{
+  "name": "spoon",
+  "version": "0.0.0",
+  "main": "lib/spoon",
+  "dependencies": {
+    "esprima": "~0.9.9",
+    "uglify-js": "~1.3.3"
+  },
+  "devDependencies": {
+    "mocha": "~1.4.2"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec test/*-test.js"
+  }
+}
