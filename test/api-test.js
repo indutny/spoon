@@ -44,6 +44,11 @@ describe('Spoon', function() {
     it('should work with do while loop', function() {
       apply('var i = 0;\n' +
             'do {\n' +
+            '  if (i == 9) {\n' +
+            '    break;\n' +
+            '  } else if (i > 10) {\n' +
+            '    continue;\n' +
+            '  }\n' +
             '  i++;\n' +
             '} while (i < 10)\n' +
             'i');
