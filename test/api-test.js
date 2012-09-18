@@ -1,35 +1,36 @@
 var spoon = require('..'),
+    assert = require('assert'),
+    vm = require('vm'),
     esprima = require('esprima'),
     uglify = require('uglify-js');
 
 describe('Spoon', function() {
-  function apply(code) {
+  function test(code, expected) {
     var ast = esprima.parse(code),
         cfg = spoon.construct(ast);
 
-    console.log(cfg.toString());
 
     var out = spoon.render(cfg);
-    console.log(require('util').inspect(out, false, 40));
-    console.log(uglify.uglify.gen_code(out, { beautify: true }));
+    var code = uglify.uglify.gen_code(out, { beautify: true });
 
-    return out;
+    assert.deepEqual(vm.runInNewContext(code), expected);
   }
   describe('constructing CFG from AST', function() {
-    it('should work with sample code', function() {
-      apply('var x = 1 + 2 * 3;\n' +
-            'if (x > 2) {\n' +
-            '  console.log("yay");\n' +
+    it('should work with function declarations and expressions', function() {
+      test('var x = 1 + 2 * 3;\n' +
+            'if (x > 1234) {\n' +
+            '  log("yay");\n' +
             '} else {\n' +
             '  log(function() { "yay" });\n' +
             '}\n' +
-            'function x(a,b) {\n' +
-            '  return a + b;\n' +
-            '}');
+            'function log(x) {\n' +
+            '  return typeof x === "function" ? x() : x;\n' +
+            '}',
+            'yay');
     });
 
     it('should work with while loop', function() {
-      apply('var i = 0;\n' +
+      test('var i = 0;\n' +
             'while (i < 10) {\n' +
             '  if (i == 9) {\n' +
             '    break;\n' +
@@ -38,20 +39,22 @@ describe('Spoon', function() {
             '  }\n' +
             '  i++;\n' +
             '}\n' +
-            'i');
+            'i',
+            9);
     });
 
     it('should work with do while loop', function() {
-      apply('var i = 0;\n' +
+      test('var i = 0;\n' +
             'do {\n' +
-            '  if (i == 9) {\n' +
+            '  if (i == 5) {\n' +
             '    break;\n' +
             '  } else if (i > 10) {\n' +
             '    continue;\n' +
             '  }\n' +
             '  i++;\n' +
             '} while (i < 10)\n' +
-            'i');
+            'i',
+            5);
     });
   });
 });
