@@ -29,6 +29,27 @@ describe('Spoon', function() {
            'yay');
     });
 
+    it('should work with seqeunces', function() {
+      test('var a = 1;(a += 1),(a = 2 * a),a', 4);
+    });
+
+    it('should work with member set', function() {
+      test('var a = { d: 3 };a.b = 1;a.c = 2;a.b + a.c + a.d', 6);
+    });
+
+    it('should work with logical expressions', function() {
+      test('var c = false;\n' +
+           'function a() {\n' +
+           '  if (c) return false;\n' +
+           '  return 123;\n' +
+           '}\n' +
+           'function b() {\n' +
+           '  c = true;\n' +
+           '  return false;\n' +
+           '}\n' +
+           'a() || b()', 123);
+    });
+
     it('should work with while loop', function() {
       test('var i = 0;\n' +
            'while (i < 10) {\n' +
