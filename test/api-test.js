@@ -37,6 +37,10 @@ describe('Spoon', function() {
       test('var a = { d: 3 };a.b = 1;a.c = 2;a.b + a.c + a.d', 6);
     });
 
+    it('should work with arrays', function() {
+      test('var a = [ 1, 2, 3 ]; a[0] + a[1] + a[2]', 6);
+    });
+
     it('should work with logical expressions', function() {
       test('var c = false;\n' +
            'function a() {\n' +
@@ -76,6 +80,31 @@ describe('Spoon', function() {
            '} while (i < 10)\n' +
            'i',
            5);
+    });
+
+    it('should work with for loop', function() {
+      test('for (var i = 0; i < 10; i++) {\n' +
+           '  if (i == 9) {\n' +
+           '    break;\n' +
+           '  } else if (i > 10) {\n' +
+           '    continue;\n' +
+           '  }\n' +
+           '}\n' +
+           'i',
+           9);
+    });
+
+    it('should work with for in loop', function() {
+      test('var obj = { 0: 1, 9: 1 };\n' +
+           'for (var i in obj) {\n' +
+           '  if (i == 9) {\n' +
+           '    break;\n' +
+           '  } else if (i > 10) {\n' +
+           '    continue;\n' +
+           '  }\n' +
+           '}\n' +
+           'i',
+           9);
     });
   });
 });
