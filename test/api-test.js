@@ -106,5 +106,16 @@ describe('Spoon', function() {
            'i',
            9);
     });
+
+    it('should work with try catch', function() {
+      test('var a = 2;\n' +
+           'try {\n' +
+           '  throw 1;\n' +
+           '} catch (e) {\n' +
+           '  a = e;\n' +
+           '}\n' +
+           'a',
+           1);
+    });
   });
 });
