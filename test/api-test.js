@@ -118,6 +118,10 @@ describe('Spoon', function() {
            1);
     });
 
+    it('should work with this', function() {
+      test('this.x = 1;this.x', 1);
+    });
+
     // XXX Implement switch
     return;
     it('should work with switch', function() {
