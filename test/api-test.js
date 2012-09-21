@@ -117,5 +117,22 @@ describe('Spoon', function() {
            'a',
            1);
     });
+
+    // XXX Implement switch
+    return;
+    it('should work with switch', function() {
+      test('var r;\n' +
+           'switch (1 + 2) {\n' +
+           ' case 1:\n' +
+           '  r = r + 1;\n' +
+           '  break;\n' +
+           ' default:\n' +
+           '  r = r + 2;\n' +
+           ' case 2:\n' +
+           '  r = r + 4;\n' +
+           '}\n' +
+           'r',
+           6);
+    });
   });
 });
