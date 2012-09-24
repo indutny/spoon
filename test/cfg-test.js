@@ -94,6 +94,13 @@ describe('Spoon', function() {
            9);
     });
 
+    it('should work with for loop (w/o body)', function() {
+      test('for (var i = 0; i < 10; i++) {\n' +
+           '}\n' +
+           'i',
+           10);
+    });
+
     it('should work with for in loop', function() {
       test('var obj = { 0: 1, 9: 1 };\n' +
            'for (var i in obj) {\n' +
