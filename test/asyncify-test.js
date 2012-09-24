@@ -48,14 +48,15 @@ describe('Spoon', function() {
           callback(a + b);
         }
 
+        var x = 0;
         for (var i = 0; i < 10; i++) {
-          var x = async(i, x);
+          x = async(i, x);
         }
 
         return x + 1;
       });
 
-      r = assert.equal(r, 124);
+      r = assert.equal(r, 46);
     });
   });
 });

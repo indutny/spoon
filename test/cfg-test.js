@@ -86,7 +86,7 @@ describe('Spoon', function() {
       test('for (var i = 0; i < 10; i++) {\n' +
            '  if (i == 9) {\n' +
            '    break;\n' +
-           '  } else if (i > 10) {\n' +
+           '  } else if (i % 2) {\n' +
            '    continue;\n' +
            '  }\n' +
            '}\n' +
