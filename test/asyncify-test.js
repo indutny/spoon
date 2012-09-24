@@ -58,5 +58,24 @@ describe('Spoon', function() {
 
       r = assert.equal(r, 46);
     });
+
+    it('should asyncify call in do while', function() {
+      var r = test(function fn(callback) {
+        function async(a, b, callback) {
+          callback(a + b);
+        }
+
+        var x = 0,
+            i = 0;
+        do {
+          i++;
+          x = async(i, x);
+        } while (i < 10);
+
+        return x + 1;
+      });
+
+      r = assert.equal(r, 46);
+    });
   });
 });
