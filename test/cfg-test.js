@@ -29,8 +29,12 @@ describe('Spoon', function() {
            'yay');
     });
 
-    it('should work with seqeunces', function() {
+    it('should work with sequences', function() {
       test('var a = 1;(a += 1),(a = 2 * a),a', 4);
+    });
+
+    it('should work with sequences in assignment', function() {
+      test('var a = 1;a = 1, 2, 3; a', 3);
     });
 
     it('should work with member set', function() {
@@ -127,6 +131,10 @@ describe('Spoon', function() {
 
     it('should work with this', function() {
       test('this.x = 1;this.x', 1);
+    });
+
+    it('should work with new', function() {
+      test('new Object()', {});
     });
 
     // XXX Implement switch

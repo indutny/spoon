@@ -13,6 +13,7 @@ describe('Spoon', function() {
 
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
+    console.log(code);
 
     var res,
         once = false;
@@ -28,6 +29,16 @@ describe('Spoon', function() {
   }
 
   describe('asyncify', function() {
+    it('should asyncify call in sequence', function() {
+      var r = test(function fn(callback) {
+        function async(a, callback) {
+          callback(1);
+        }
+        return 1, async(1), 2;
+      });
+      assert.equal(r, 2);
+    });
+
     it('should asyncify call in if', function() {
       var r = test(function fn(callback) {
         function async(a, callback) {
