@@ -137,6 +137,15 @@ describe('Spoon', function() {
       test('new Object()', {});
     });
 
+    it('should work with regr#1', function() {
+      test('var x, y;\n' +
+           'if (!(typeof x === "undefined" || !y) === false) {\n' +
+           '  "true"\n' +
+           '} else {\n' +
+           '  "false"\n' +
+           '}', "true");
+    })
+
     // XXX Implement switch
     return;
     it('should work with switch', function() {
