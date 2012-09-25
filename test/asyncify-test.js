@@ -14,9 +14,13 @@ describe('Spoon', function() {
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
 
-    var res;
+    var res,
+        once = false;
     vm.runInNewContext(code + ';\nfn(callback)', {
       callback: function(r) {
+        if (once) throw new Error('Called twice');
+        once = true;
+
         res = r;
       }
     });
@@ -75,7 +79,7 @@ describe('Spoon', function() {
         return x + 1;
       });
 
-      r = assert.equal(r, 46);
+      r = assert.equal(r, 56);
     });
   });
 });
