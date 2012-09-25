@@ -5,11 +5,11 @@ var spoon = require('..'),
     uglify = require('uglify-js');
 
 describe('Spoon', function() {
-  function test(code, callback) {
+  function test(code, what) {
     var ast = esprima.parse(code.toString()),
         cfg = spoon.construct(ast);
 
-    cfg.asyncify('async');
+    cfg.asyncify(esprima.parse(what || 'async'));
 
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
@@ -28,6 +28,18 @@ describe('Spoon', function() {
   }
 
   describe('asyncify', function() {
+    it('should asyncify method', function() {
+      var r = test(function fn(callback) {
+        var obj = {
+          async: function async(a, callback) {
+            callback(a);
+          }
+        };
+        return obj.async(1);
+      }, 'obj.async');
+      assert.equal(r, 1);
+    });
+
     it('should asyncify call in sequence', function() {
       var r = test(function fn(callback) {
         function async(a, callback) {
