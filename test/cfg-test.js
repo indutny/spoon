@@ -146,6 +146,12 @@ describe('Spoon', function() {
            '}', "true");
     })
 
+    it('should work with regr#2', function() {
+      test('var a;\n' +
+           'a || (a = true ? 1 : 2);\n' +
+           'a + 2', 3);
+    });
+
     // XXX Implement switch
     return;
     it('should work with switch', function() {
