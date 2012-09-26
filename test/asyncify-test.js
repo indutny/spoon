@@ -29,7 +29,8 @@ describe('Spoon', function() {
 
   describe('asyncify', function() {
     it('should asyncify method', function() {
-      var r = test(function fn(callback) {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
         var obj = {
           async: function async(a, callback) {
             callback(a);
@@ -41,7 +42,8 @@ describe('Spoon', function() {
     });
 
     it('should asyncify call in sequence', function() {
-      var r = test(function fn(callback) {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
         function async(a, callback) {
           callback(1);
         }
@@ -51,7 +53,8 @@ describe('Spoon', function() {
     });
 
     it('should asyncify call in if', function() {
-      var r = test(function fn(callback) {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
         function async(a, callback) {
           callback(a);
         }
@@ -69,7 +72,8 @@ describe('Spoon', function() {
     });
 
     it('should asyncify call in for', function() {
-      var r = test(function fn(callback) {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
         function async(a, b, callback) {
           callback(a + b);
         }
@@ -86,7 +90,8 @@ describe('Spoon', function() {
     });
 
     it('should asyncify call in do while', function() {
-      var r = test(function fn(callback) {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
         function async(a, b, callback) {
           callback(a + b);
         }
