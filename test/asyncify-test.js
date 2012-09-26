@@ -78,9 +78,8 @@ describe('Spoon', function() {
           callback(a + b);
         }
 
-        var x = 0;
         for (var i = 0; i < 10; i++) {
-          x = async(i, x);
+          var x = async(i, x || 0);
         }
 
         return x + 1;
