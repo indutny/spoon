@@ -13,6 +13,7 @@ describe('Spoon', function() {
 
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
+    console.log(code);
 
     var res,
         once = false;
@@ -71,7 +72,7 @@ describe('Spoon', function() {
       r = assert.equal(r, 124);
     });
 
-    it('should asyncify call in for', function() {
+    it('should asyncify call in for loop', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, b, callback) {
@@ -88,7 +89,7 @@ describe('Spoon', function() {
       r = assert.equal(r, 46);
     });
 
-    it('should asyncify call in do while', function() {
+    it('should asyncify call in do while loop', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, b, callback) {
@@ -106,6 +107,25 @@ describe('Spoon', function() {
       });
 
       r = assert.equal(r, 56);
+    });
+
+    it('should asyncify call in for in loop', function() {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
+        function async(a, b, callback) {
+          callback(a + b);
+        }
+
+        var obj = { a : 1, b : 2 };
+
+        for (var i in obj) {
+          var x = async(obj[i], x || 0);
+        }
+
+        return x + 1;
+      });
+
+      r = assert.equal(r, 4);
     });
   });
 });
