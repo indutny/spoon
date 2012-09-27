@@ -1,6 +1,6 @@
 # Spoon
 
-Coming soon...
+Continuation passing style for javascript.
 
 ### License
 
