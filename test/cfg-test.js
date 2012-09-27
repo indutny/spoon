@@ -118,6 +118,19 @@ describe('Spoon', function() {
            9);
     });
 
+    it('should work with for in loop (without declaration)', function() {
+      test('var obj = { 0: 1, 9: 1 };\n' +
+           'for (i in obj) {\n' +
+           '  if (i == 9) {\n' +
+           '    break;\n' +
+           '  } else if (i > 10) {\n' +
+           '    continue;\n' +
+           '  }\n' +
+           '}\n' +
+           'i',
+           9);
+    });
+
     it('should work with try catch', function() {
       test('var a = 2;\n' +
            'try {\n' +

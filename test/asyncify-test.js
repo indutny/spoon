@@ -13,7 +13,6 @@ describe('Spoon', function() {
 
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
-    console.log(code);
 
     var res,
         once = false;
