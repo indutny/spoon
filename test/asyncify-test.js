@@ -9,7 +9,9 @@ describe('Spoon', function() {
     var ast = esprima.parse(code.toString()),
         cfg = spoon.construct(ast);
 
-    cfg.asyncify([esprima.parse(what || 'async')], {});
+    cfg.asyncify([esprima.parse(what || 'async')], {
+      declaration: 'enable spoon'
+    });
 
     var out = spoon.render(cfg);
     var code = uglify.uglify.gen_code(out, { beautify: true });
