@@ -31,6 +31,18 @@ describe('Spoon', function() {
   }
 
   describe('asyncify', function() {
+    it('should asyncify two-fold operation', function() {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
+        function async(a, callback) {
+          callback(null, a * a);
+        }
+
+        return async(3) + async(4);
+      }, 'async');
+      assert.equal(r, 25);
+    });
+
     it('should asyncify method', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
