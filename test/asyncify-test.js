@@ -19,7 +19,8 @@ describe('Spoon', function() {
     var res,
         once = false;
     vm.runInNewContext(code + ';\nfn(callback)', {
-      callback: function(r) {
+      callback: function(err, r) {
+        assert.equal(err, null);
         if (once) throw new Error('Called twice');
         once = true;
 
@@ -35,7 +36,7 @@ describe('Spoon', function() {
         "enable spoon";
         var obj = {
           async: function async(a, callback) {
-            callback(a);
+            callback(null, a);
           }
         };
         return obj.async(1);
@@ -47,7 +48,7 @@ describe('Spoon', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, callback) {
-          callback(1);
+          callback(null, 1);
         }
         return 1, async(1), 2;
       });
@@ -58,7 +59,7 @@ describe('Spoon', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, callback) {
-          callback(a);
+          callback(null, a);
         }
 
         if (1 + 2 > 2) {
@@ -77,7 +78,7 @@ describe('Spoon', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, b, callback) {
-          callback(a + b);
+          callback(null, a + b);
         }
 
         for (var i = 0; i < 10; i++) {
@@ -94,7 +95,7 @@ describe('Spoon', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, b, callback) {
-          callback(a + b);
+          callback(null, a + b);
         }
 
         var x = 0,
@@ -114,7 +115,7 @@ describe('Spoon', function() {
       var r = test(function fn(__$callback) {
         "enable spoon";
         function async(a, b, callback) {
-          callback(a + b);
+          callback(null, a + b);
         }
 
         var obj = { a : 1, b : 2 };
