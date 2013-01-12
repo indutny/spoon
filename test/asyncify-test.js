@@ -19,6 +19,7 @@ describe('Spoon', function() {
 
       var res,
           once = false;
+      console.log(cfg.toString());
       vm.runInNewContext(code + ';\nfn(callback)', {
         callback: function(err, r) {
           assert.equal(err, null);
@@ -138,6 +139,39 @@ describe('Spoon', function() {
       });
 
       r = assert.equal(r, 44253432);
+    });
+
+    it('should asyncify call in while loop', function() {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
+        function async(a, b, callback) {
+          callback(null, a + b);
+        }
+
+        var x = 0,
+            p = false,
+            i;
+
+        if (p) {
+          i = 11;
+          while (i) {
+            i--;
+            x = async(i, x);
+          }
+        }
+
+        if (!p) {
+          i = 11;
+          while (i) {
+            i--;
+            x = async(i, x);
+          }
+        }
+
+        return x + 1;
+      });
+
+      r = assert.equal(r, 56);
     });
 
     it('should asyncify call in do while loop', function() {
