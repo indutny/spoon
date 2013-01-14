@@ -19,7 +19,6 @@ describe('Spoon', function() {
 
       var res,
           once = false;
-      console.log(cfg.toString());
       vm.runInNewContext(code + ';\nfn(callback)', {
         callback: function(err, r) {
           assert.equal(err, null);
@@ -172,6 +171,29 @@ describe('Spoon', function() {
       });
 
       r = assert.equal(r, 56);
+    });
+
+    it('should asyncify call in post-conditional for loop', function() {
+      var r = test(function fn(__$callback) {
+        "enable spoon";
+        function async(a, callback) {
+          callback(null, a);
+        }
+
+        var x = async(false),
+            i = 0,
+            visited = false;
+
+        if (x) {
+          for (var i = 0; i < 2; i++) {
+            visited = true;
+          }
+        }
+
+        return visited;
+      });
+
+      r = assert.equal(r, false);
     });
 
     it('should asyncify call in do while loop', function() {
