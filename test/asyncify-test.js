@@ -2,7 +2,7 @@ var spoon = require('..'),
     assert = require('assert'),
     vm = require('vm'),
     esprima = require('esprima'),
-    uglify = require('uglify-js');
+    escodegen = require('escodegen');
 
 describe('Spoon', function() {
   describe('asyncify', function() {
@@ -15,7 +15,7 @@ describe('Spoon', function() {
       });
 
       var out = spoon.render(cfg);
-      var code = uglify.uglify.gen_code(out, { beautify: true });
+      var code = escodegen.generate(out);
 
       var res,
           once = false;
@@ -247,7 +247,7 @@ describe('Spoon', function() {
       });
 
       var out = spoon.render(cfg);
-      var code = uglify.uglify.gen_code(out, { beautify: true });
+      var code = escodegen.generate(out);
 
       var res,
           once = false;

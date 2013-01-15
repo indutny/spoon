@@ -2,7 +2,7 @@ var spoon = require('..'),
     assert = require('assert'),
     vm = require('vm'),
     esprima = require('esprima'),
-    uglify = require('uglify-js');
+    escodegen = require('escodegen');
 
 describe('Spoon', function() {
   function test(code, expected) {
@@ -10,7 +10,7 @@ describe('Spoon', function() {
         cfg = spoon.construct(ast);
 
     var out = spoon.render(cfg);
-    var code = uglify.uglify.gen_code(out, { beautify: true });
+    var code = escodegen.generate(out);
 
     assert.deepEqual(vm.runInNewContext(code), expected);
   }
